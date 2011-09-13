@@ -46,7 +46,6 @@ public class DrawPanel extends JPanel {
 			double zoomvalue = 1.0;
 
 			public void mousePressed(MouseEvent e) {
-				// マウスカーソルを手の形に
 				Cursor c = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 				Component p = (Component) e.getSource();
 				p.setCursor(c);
@@ -66,7 +65,6 @@ public class DrawPanel extends JPanel {
 			}
 
 			public void mouseReleased(MouseEvent e) {
-				// マウスカーソルをデフォルトに戻す
 				Cursor c = Cursor.getDefaultCursor();
 				Component p = (Component) e.getSource();
 				p.setCursor(c);
