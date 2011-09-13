@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="Shift_JIS"?>
-<project name="JVector" default="compile" basedir=".">
+<project name="JVector" default="jar" basedir=".">
 	<target name="compile">
 		<javac srcdir="./src" destdir="./bin" />
 	</target>
 	<target name="jar" depends="compile">
-		<jar destfile="jvector.jar" basedir="./bin" />
+		<jar destfile="jvector.jar" basedir="./bin">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Main-Class" value="info.apoluna.vector.JVector32" />
+			</manifest>
+		</jar>
 	</target>
 </project>
