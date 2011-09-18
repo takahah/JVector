@@ -55,6 +55,7 @@ public class Loader {
 				x[i] = Double.parseDouble(tt.nextToken());
 				y[i] = Double.parseDouble(tt.nextToken());
 			}
+			int min = 1;
 			for (int i = 0; i < ne; i++) {
 				String line = br.readLine();
 				StringTokenizer tt = new StringTokenizer(line);
@@ -64,6 +65,21 @@ public class Loader {
 				ie[i][2] = Integer.parseInt(tt.nextToken());
 				if (le == 4) {
 					ie[i][3] = Integer.parseInt(tt.nextToken());
+				}
+				if (min != 0) {
+					for (int j = 0; j < le; j++) {
+						if (min > ie[i][j]) {
+							min = ie[i][j];
+						}
+					}
+				}
+			}
+			if (min == 1) {
+				// indexが1から始まっている場合には、0からとなるよう補正
+				for (int i = 0; i < ne; i++) {
+					for (int j = 0; j < le; j++) {
+						ie[i][j] = ie[i][j] - 1;
+					}
 				}
 			}
 			nodeVectorValueX = new double[na];
