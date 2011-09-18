@@ -173,7 +173,7 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 
 				@Override
 				public String getDescription() {
-					return "vecƒtƒ@ƒCƒ‹Œ`Ž®(*.inp)";
+					return "vecãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼(*.inp)";
 				}
 
 				private String getExtension(File f) {
@@ -210,11 +210,11 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 			aset.add(new Copies(1));
 			aset.add(new JobName("JVector32", null));
 
-			/* ƒvƒŠƒ“ƒgƒWƒ‡ƒu‚Ì¶¬ */
+			/* ãƒ—ãƒªãƒ³ãƒˆã‚¸ãƒ§ãƒ–ã®ç”Ÿæˆ */
 			PrinterJob pj = PrinterJob.getPrinterJob();
 			pj.setPrintable(this);
 
-			/* ‚±‚Ì—v‹‚ªˆ—‚Å‚«‚éƒvƒŠƒ“ƒgƒT[ƒrƒX‚ðŒŸõ‚·‚é */
+			/* ã“ã®è¦æ±‚ãŒå‡¦ç†ã§ãã‚‹ãƒ—ãƒªãƒ³ãƒˆã‚µãƒ¼ãƒ“ã‚¹ã‚’æ¤œç´¢ã™ã‚‹ */
 			PrintService[] services = PrinterJob.lookupPrintServices();
 
 			if (services.length > 0) {
