@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.io.File;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -112,11 +113,14 @@ public class DrawPanel extends JPanel {
 			try {
 				String data = null;
 				if (e.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+					// linux
 					data = (String) tr.getTransferData(DataFlavor.stringFlavor);
 					gotData = (data != null);
+
+					String filename = URLDecoder.decode(data, "utf-8");
 					Loader loader = new Loader();
 					Value v = loader
-							.load(data.replaceAll("file://", "").trim());
+							.load(filename.replaceAll("file://", "").trim());
 					ValueHolder.setValue(v);
 					DrawConfig.getInstance().setContourMinimum(
 							v.getMinNodeScalarValue1());
@@ -124,6 +128,7 @@ public class DrawPanel extends JPanel {
 							v.getMaxNodeScalarValue1());
 				} else if (e
 						.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					// windows
 					List<File> files = (List<File>) tr
 							.getTransferData(DataFlavor.javaFileListFlavor);
 					Loader loader = new Loader();
