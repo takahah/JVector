@@ -47,13 +47,29 @@ public class Loader {
 			le = Integer.parseInt(t.nextToken());
 			x = new double[na];
 			y = new double[na];
-			ie = new int[ne][5];
+			ie = new int[ne][le];
+			double minX = Double.MAX_VALUE;
+			double maxX = Double.MIN_VALUE;
+			double minY = Double.MAX_VALUE;
+			double maxY = Double.MIN_VALUE;
 			for (int i = 0; i < na; i++) {
 				String line = br.readLine();
 				StringTokenizer tt = new StringTokenizer(line);
 				// String[] xy = line.split(" ");
 				x[i] = Double.parseDouble(tt.nextToken());
 				y[i] = Double.parseDouble(tt.nextToken());
+				if (minX > x[i]) {
+					minX = x[i];
+				}
+				if (maxX < x[i]) {
+					maxX = x[i];
+				}
+				if (minY > y[i]) {
+					minY = y[i];
+				}
+				if (maxY < y[i]) {
+					maxY = y[i];
+				}
 			}
 			int min = 1;
 			for (int i = 0; i < ne; i++) {
@@ -110,6 +126,10 @@ public class Loader {
 			value.setLe(le);
 			value.setX(x);
 			value.setY(y);
+			value.setMinX(minX);
+			value.setMaxX(maxX);
+			value.setMinY(minY);
+			value.setMaxY(maxY);
 			value.setIe(ie);
 			value.setNodeVectorValueX(nodeVectorValueX);
 			value.setNodeVectorValueY(nodeVectorValueY);

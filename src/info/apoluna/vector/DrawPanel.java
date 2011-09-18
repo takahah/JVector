@@ -119,8 +119,8 @@ public class DrawPanel extends JPanel {
 
 					String filename = URLDecoder.decode(data, "utf-8");
 					Loader loader = new Loader();
-					Value v = loader
-							.load(filename.replaceAll("file://", "").trim());
+					Value v = loader.load(filename.replaceAll("file://", "")
+							.trim());
 					ValueHolder.setValue(v);
 					DrawConfig.getInstance().setContourMinimum(
 							v.getMinNodeScalarValue1());
@@ -170,14 +170,24 @@ public class DrawPanel extends JPanel {
 	}
 
 	private void setTrans(Graphics2D g2) {
+		Value value = ValueHolder.getValue();
+
+		double vx = value.getMaxX() - value.getMinX();
+		double vy = value.getMaxY() - value.getMinY();
 		int w = this.getWidth();
 		int h = this.getHeight();
-		int ww = 0;
-		if (w > h) {
-			ww = h;
+		
+		double wx = w / vx;
+		double wy = h / vy;
+		
+		double ww = 0;
+		if (wx > wy) {
+			ww = wy;
 		} else {
-			ww = w;
+			ww = wx;
 		}
+
+		//
 		ww -= ww * 0.05;
 
 		AffineTransform t2 = AffineTransform.getTranslateInstance(10, h - 10);
