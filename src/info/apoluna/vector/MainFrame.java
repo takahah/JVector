@@ -1,15 +1,19 @@
 package info.apoluna.vector;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.print.PrintService;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
@@ -21,7 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
 public class MainFrame extends JFrame implements ActionListener, Printable {
@@ -29,7 +32,7 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel mainPanel;
+	DrawPanel mainPanel;
 	JCheckBoxMenuItem menuColor;
 	JCheckBoxMenuItem menuMonoclome;
 
@@ -82,6 +85,7 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 		menuMonoclome = new JCheckBoxMenuItem("Monoclome");
 		JCheckBoxMenuItem menuColorContour = new JCheckBoxMenuItem(
 				"Color Contour");
+		JMenuItem menuCreateBitmap = new JMenuItem("Create Bitmap");
 		// JCheckBoxMenuItem menuCreateBitmap = new JCheckBoxMenuItem(
 		// "Create Bitmap");
 		// JMenuItem menuFont = new JMenuItem("Font");
@@ -112,7 +116,7 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 		menuColor.addActionListener(this);
 		menuMonoclome.addActionListener(this);
 		menuColorContour.addActionListener(this);
-		// menuCreateBitmap.addActionListener(this);
+		menuCreateBitmap.addActionListener(this);
 		// menuFont.addActionListener(this);
 		menuHelp.addActionListener(this);
 
@@ -139,7 +143,7 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 		menuConfig.add(menuColor);
 		menuConfig.add(menuMonoclome);
 		menuConfig.add(menuColorContour);
-		// menuConfig.add(menuCreateBitmap);
+		menuConfig.add(menuCreateBitmap);
 		// menuConfig.add(menuFont);
 		menuBar.add(menuHelp);
 
@@ -261,9 +265,26 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 					((JCheckBoxMenuItem) e.getSource()).getState());
 			repaint();
 		} else if ("Create Bitmap".equals(cmd)) {
+			createImage();
 		} else if ("Exit".equals(cmd)) {
 			this.dispose();
 		} else if ("".equals(cmd)) {
+		}
+	}
+
+	private void createImage() {
+		int width = 1920;
+		int height = 1080;
+		BufferedImage image = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = (Graphics2D) image.getGraphics();
+		g2.setBackground(Color.white);
+		g2.clearRect(0, 0, width, height);
+		mainPanel.paint(g2, width, height);
+		try {
+			ImageIO.write(image, "png", new File("image.png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 

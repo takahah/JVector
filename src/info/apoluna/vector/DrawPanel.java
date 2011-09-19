@@ -169,17 +169,15 @@ public class DrawPanel extends JPanel {
 		setColorPallet();
 	}
 
-	private void setTrans(Graphics2D g2) {
+	private void setTrans(Graphics2D g2,int w, int h) {
 		Value value = ValueHolder.getValue();
 
 		double vx = value.getMaxX() - value.getMinX();
 		double vy = value.getMaxY() - value.getMinY();
-		int w = this.getWidth();
-		int h = this.getHeight();
-		
+
 		double wx = w / vx;
 		double wy = h / vy;
-		
+
 		double ww = 0;
 		if (wx > wy) {
 			ww = wy;
@@ -203,14 +201,12 @@ public class DrawPanel extends JPanel {
 
 	}
 
-	public void paint(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
+	public void paint(Graphics2D g2, int width, int height) {
 
 		// backup
 		AffineTransform aT = g2.getTransform();
 
-		setTrans(g2);
+		setTrans(g2, width, height);
 
 		DrawConfig ins = DrawConfig.getInstance();
 
@@ -228,6 +224,16 @@ public class DrawPanel extends JPanel {
 		}
 
 		g2.setTransform(aT);
+	}
+
+	public void paint(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+
+		int w = this.getWidth();
+		int h = this.getHeight();
+
+		paint(g2, w, h);
 	}
 
 	private void setColorPallet() {
