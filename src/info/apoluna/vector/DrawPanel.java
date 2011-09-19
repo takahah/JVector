@@ -178,17 +178,20 @@ public class DrawPanel extends JPanel {
 		double wx = w / vx;
 		double wy = h / vy;
 
-		double ww = 0;
+		double ww = 0.0;
 		if (wx > wy) {
 			ww = wy;
 		} else {
 			ww = wx;
 		}
-
-		//
+		//	少し縮小
 		ww -= ww * 0.05;
-
-		AffineTransform t2 = AffineTransform.getTranslateInstance(10, h - 10);
+		
+		//	画面中央に表示される
+		double sx = (w - ww*vx)/2.0;
+		double sy = (h - ww*vy)/2.0;
+		
+		AffineTransform t2 = AffineTransform.getTranslateInstance(sx, h - sy);
 		if (move != null) {
 			t2.concatenate(move);
 		}
