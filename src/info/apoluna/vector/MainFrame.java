@@ -265,26 +265,11 @@ public class MainFrame extends JFrame implements ActionListener, Printable {
 					((JCheckBoxMenuItem) e.getSource()).getState());
 			repaint();
 		} else if ("Create Bitmap".equals(cmd)) {
-			createImage();
+			SaveImageDialog dialog = new SaveImageDialog(this, mainPanel);
+			dialog.setVisible(true);
 		} else if ("Exit".equals(cmd)) {
 			this.dispose();
 		} else if ("".equals(cmd)) {
-		}
-	}
-
-	private void createImage() {
-		int width = 1920;
-		int height = 1080;
-		BufferedImage image = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2 = (Graphics2D) image.getGraphics();
-		g2.setBackground(Color.white);
-		g2.clearRect(0, 0, width, height);
-		mainPanel.paint(g2, width, height);
-		try {
-			ImageIO.write(image, "png", new File("image.png"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
 	}
 
